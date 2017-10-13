@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dao.FruitDao">
+
+
+    <resultMap id="FruitMap" type="com.entity.Fruit" >
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="createTime" property="createTime"/>
+        <!--<result column="updateTime" property="updateTime"/>-->
+    </resultMap>
+
+    <sql id="FruitFeild">
+       id, name,price,address,createTime
+    </sql>
+
+    <insert id="addFruit" parameterType="com.entity.Fruit" useGeneratedKeys="true">
+        INSERT into fruit(name,price,address,createTime) VALUES (#{name },#{price},#{address},#{createTime});
+    </insert>
+
+    <update id="updateFruit" parameterType="com.entity.Fruit">
+        UPDATE fruit
+        <set>
+            name=#{name},price=#{price},updateTime=#{updateTime}
+        </set>
+        <where>
+            id=#{id};
+        </where>
+    </update>
+
+    <delete id="deleteFruit" parameterType="int">
+        DELETE FROM fruit where id=#{id};
+    </delete>
+
+    <select id="queryFruit" parameterType="int" resultMap="FruitMap">
+        SELECT <include refid="FruitFeild"  />
+        from fruit
+        WHERE id=#{id};
+    </select>
+
+
+    <!--<select id="queryFruit" parameterType="int" resultType="com.entity.Fruit">-->
+        <!--SELECT *-->
+        <!--from fruit-->
+        <!--WHERE id=#{id};-->
+    <!--</select>-->
+
+    <select id="queryFruits"  resultMap="FruitMap">
+        SELECT <include refid="FruitFeild"  />
+        from fruit;
+    </select>
+
+
+
+
+</mapper>
