@@ -11,8 +11,7 @@ import javax.annotation.Resource;
 import javax.management.Query;
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by roy.zhuo on 2017/10/13.
@@ -26,6 +25,7 @@ public class TestMybatis {
 
     @Resource
     private FruitService fruitService;
+
 
 
     @Test
@@ -42,9 +42,10 @@ public class TestMybatis {
     @Test
     public void testFruitAdd(){
 
-        Fruit fruit=new Fruit("葡萄",12.31,"吐鲁番",new Date());
+        Fruit fruit=new Fruit("荔枝",22.31,"福建",new Date());
         int result=fruitService.addFruit(fruit);
         junit.framework.Assert.assertEquals(result,1);
+        System.out.println("水果:"+fruit.toString());
     }
 
     @Test
@@ -78,6 +79,45 @@ public class TestMybatis {
             System.out.println(fruit.toString());
         }
     }
+
+    @Test
+    public void testFruitsQueryList(){
+        List<Integer> ids=new ArrayList<>();
+        ids.add(1);
+        ids.add(4);
+        ids.add(3);
+        ids.add(5);
+        List<Fruit> fruits=fruitService.queryFruits(ids);
+        for (Fruit fruit:fruits) {
+            System.out.println(fruit.toString());
+        }
+    }
+
+    @Test
+    public void testFruitsQueryArray(){
+        int[] ids={1,4,3,5};
+        List<Fruit> fruits=fruitService.queryFruits(ids);
+        for (Fruit fruit:fruits) {
+            System.out.println(fruit.toString());
+        }
+    }
+    @Test
+    public void testFruitsQueryMap(){
+        Map<String ,Object> map=new HashMap<>();
+        List<Integer> ids=new ArrayList<>();
+        ids.add(1);
+        ids.add(4);
+        ids.add(3);
+        ids.add(5);
+        map.put("ids",ids);
+        map.put("title","hashmap 查询");
+        List<Fruit> fruits=fruitService.queryFruits(map);
+        for (Fruit fruit:fruits) {
+            System.out.println(fruit.toString());
+        }
+    }
+
+
 
 
 }

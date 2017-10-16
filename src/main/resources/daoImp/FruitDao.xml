@@ -18,9 +18,11 @@
        id, name,price,address,createTime
     </sql>
 
-    <insert id="addFruit" parameterType="com.entity.Fruit" useGeneratedKeys="true">
+    <!--db：支持主键自增。 设置useGeneratedKeys=true（默认false） keyProperty的值则是db自增的主键绑定到javabean中的对应属性-->
+    <insert id="addFruit" parameterType="com.entity.Fruit" useGeneratedKeys="true" keyProperty="id" >
         INSERT into fruit(name,price,address,createTime) VALUES (#{name },#{price},#{address},#{createTime});
     </insert>
+
 
     <update id="updateFruit" parameterType="com.entity.Fruit">
         UPDATE fruit
@@ -49,12 +51,53 @@
         <!--WHERE id=#{id};-->
     <!--</select>-->
 
+    <!--include refid 应用sql 标签的内容，使sql复用性更高-->
     <select id="queryFruits"  resultMap="FruitMap">
         SELECT <include refid="FruitFeild"  />
         from fruit;
     </select>
 
 
+    <!--批量查询
+
+foreach的主要用在构建in条件中，它可以在SQL语句中进行迭代一个集合。
+
+    forecah:
+
+     item表示集合中每一个元素进行迭代时的别名，
+    index指 定一个名字，用于表示在迭代过程中，每次迭代到的位置，
+    open表示该语句以什么开始，
+    separator表示在每次进行迭代之间以什么符号作为分隔 符，
+    close表示以什么结束。
+
+    collection:传入的值
+
+
+    -->
+    <select id="queryFruitsByIds1" resultType="com.entity.Fruit">
+        SELECT * from fruit
+        WHERE  id in
+        <foreach collection="list" item="aas" index="index" open="(" separator="," close=")">
+            #{aas}
+        </foreach>
+    </select>
+
+    <!--如果传入的是map  collection的值则是map中的key-->
+    <select id="queryFruitsByIds2" resultType="com.entity.Fruit">
+        SELECT * from fruit
+        WHERE  id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryFruitsByIds3" resultType="com.entity.Fruit" >
+        SELECT * from fruit
+        WHERE  id in
+        <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
 
 </mapper>
