@@ -60,4 +60,16 @@ public class FruitService {
     public List<Fruit> queryFruitsLike(Fruit fruit){
         return fruitDao.queryFruitsLike(fruit);
     }
+
+    public Fruit queryFruitByNameAndId(Integer id,String name){
+        return fruitDao.queryFruitByNameAndId(id,name);
+    }
+
+    public Fruit queryFruitByNameAndId(Map<String,Object> params){
+        return fruitDao.queryFruitByNameAndId(params);
+    }
+
+    public Fruit queryFruitByNameAndId(List<Object> params){
+        return fruitDao.queryFruitByNameAndId(params);
+    }
 }

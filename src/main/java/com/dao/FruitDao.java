@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.Fruit;
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,16 @@ public interface FruitDao {
 
     int deleteFruit(int id);
 
+    //传单个参数
     Fruit queryFruit(int id);
+
+    //传多个参数
+//    Fruit queryFruitByNameAndId(int id,String name);
+
+    Fruit queryFruitByNameAndId(@Param("id") int id, @Param("name") String name);
+
+    Fruit queryFruitByNameAndId(Map<String,Object> params);
+    Fruit queryFruitByNameAndId(List<Object> params);
 
     List<Fruit> queryFruits();
 
@@ -32,6 +42,7 @@ public interface FruitDao {
 
     //模糊查询
     List<Fruit> queryFruitsLike(Fruit fruit);
+
 
 
 

@@ -128,6 +128,23 @@ public class TestMybatis {
         }
     }
 
+    @Test
+    public void testQueryOfManyParams(){
+
+//    1.    Fruit fruit=fruitService.queryFruitByNameAndId(7,"火龙果");
+        //2.
+//        Map<String,Object> params=new HashMap<>();
+//        params.put("id",7);
+//        params.put("name","火龙果");
+        //3.
+        List<Object> params=new ArrayList<>();
+        params.add(7);
+        params.add("火龙果");
+        Fruit fruit=fruitService.queryFruitByNameAndId(params);
+        System.out.println(fruit.toString());
+
+    }
+
 
 
 

@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--
+
+#{param}  ${param} 区别:
+#{param}:是预编译的。用占位符在赋值，preparamstatemnt注入sql参数的，prarm=？，可以防止sql注入
+${param} 直接把值赋值在变量上 param=param
+
+${param}使用场景:在sql初始化时就要显示内容时，就要使用.例如;select * from table_name  table_name作为变量就要赋值 或者order by id 的id
+
+-->
+
 
 <mapper namespace="com.dao.FruitDao">
 
@@ -38,18 +48,42 @@
         DELETE FROM fruit where id=#{id};
     </delete>
 
+    <!--如果传的是单个值，id=#{变量名可以随意写 id或idsss}-->
     <select id="queryFruit" parameterType="int" resultMap="FruitMap">
         SELECT <include refid="FruitFeild"  />
         from fruit
         WHERE id=#{id};
     </select>
 
+    <!--如果系统传的是多个值，mybatis会自己把参数封装在map对象中。
+    取值方式: 1.默认map中的key是 pram1,pram2,pram3....,pramn     Fruit queryFruit(int id,String name);     id=#{param1}
+              2.可以在方法上用@Param Fruit queryFruit(@Param("id") int id, @Param("name") String name);          id=#{id}
+              3. 直接传Map对象 Fruit queryFruit(Map<String,String> params);                                 id=#{map中的key}
 
-    <!--<select id="queryFruit" parameterType="int" resultType="com.entity.Fruit">-->
-        <!--SELECT *-->
-        <!--from fruit-->
-        <!--WHERE id=#{id};-->
-    <!--</select>-->
+              4.如果是 list arrary set： #{list[i]} #{set[i]}
+    -->
+<!--    1
+    <select id="queryFruitByNameAndId" resultMap="FruitMap">
+        SELECT <include refid="FruitFeild"  />
+        from fruit
+        WHERE id=#{param1} AND name=#{param2};
+    </select>-->
+
+    <!--2 ,3-->
+<!--    <select id="queryFruitByNameAndId" resultMap="FruitMap">
+        SELECT <include refid="FruitFeild"  />
+        from fruit
+        WHERE id=#{id} AND name=#{name};
+    </select>-->
+
+    <!--4-->
+    <select id="queryFruitByNameAndId" resultMap="FruitMap">
+        SELECT <include refid="FruitFeild"  />
+        from fruit
+        WHERE id=#{list[0]} AND name=#{list[1]};
+    </select>
+
+
 
     <!--include refid 应用sql 标签的内容，使sql复用性更高-->
     <select id="queryFruits"  resultMap="FruitMap">
