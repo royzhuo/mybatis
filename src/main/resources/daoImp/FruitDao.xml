@@ -99,5 +99,23 @@ foreach的主要用在构建in条件中，它可以在SQL语句中进行迭代�
         </foreach>
     </select>
 
+    <!--
+    trim标记是一个格式化的标记，可以完成set或者是where标记等功能
+    prefix:前缀
+    prefixOverrides：去掉第一个and或者是or
+    suffix：后缀
+    suffixOverrides：重写后缀
+    -->
+    <select id="queryFruitsLike" resultType="com.entity.Fruit" parameterType="com.entity.Fruit" >
+        SELECT * FROM fruit
+        <trim prefix="where" prefixOverrides="AND|OR" suffix=";" >
+            <if test="name != null">
+                name LIKE #{name}
+            </if>
+            <if test="address !=null">
+               OR address LIKE #{address}
+            </if>
+        </trim>
+    </select>
 
 </mapper>

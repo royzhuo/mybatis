@@ -30,6 +30,8 @@ public interface FruitDao {
 
     List<Fruit>  queryFruitsByIds3(int[] ids);
 
+    //模糊查询
+    List<Fruit> queryFruitsLike(Fruit fruit);
 
 
 

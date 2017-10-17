@@ -117,6 +117,17 @@ public class TestMybatis {
         }
     }
 
+    @Test
+    public void testQueryFruitsLike(){
+        Fruit fruit=new Fruit();
+        fruit.setAddress("%鲁%");
+        fruit.setName("%龙%");
+        List<Fruit> fruits=fruitService.queryFruitsLike(fruit);
+        for (Fruit fruit1:fruits) {
+            System.out.println(fruit1.toString());
+        }
+    }
+
 
 
 

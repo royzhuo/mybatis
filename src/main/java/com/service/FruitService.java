@@ -56,4 +56,8 @@ public class FruitService {
 
         return fruitDao.queryFruitsByIds2(ids);
     }
+
+    public List<Fruit> queryFruitsLike(Fruit fruit){
+        return fruitDao.queryFruitsLike(fruit);
+    }
 }
