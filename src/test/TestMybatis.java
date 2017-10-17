@@ -120,9 +120,11 @@ public class TestMybatis {
     @Test
     public void testQueryFruitsLike(){
         Fruit fruit=new Fruit();
-        fruit.setAddress("%鲁%");
-        fruit.setName("%龙%");
-        List<Fruit> fruits=fruitService.queryFruitsLike(fruit);
+//        fruit.setAddress("%鲁%");
+//        fruit.setName("%龙%");
+//        List<Fruit> fruits=fruitService.queryFruitsLike(fruit);
+        fruit.setName("龙");
+        List<Fruit> fruits=fruitService.queryFruitsLike1(fruit);
         for (Fruit fruit1:fruits) {
             System.out.println(fruit1.toString());
         }

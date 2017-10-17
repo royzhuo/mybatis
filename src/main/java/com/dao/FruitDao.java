@@ -43,6 +43,8 @@ public interface FruitDao {
     //模糊查询
     List<Fruit> queryFruitsLike(Fruit fruit);
 
+    List<Fruit> queryFruitsLike1(Fruit fruit);
+
 
 
 

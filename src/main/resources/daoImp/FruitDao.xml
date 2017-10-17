@@ -152,4 +152,10 @@ foreach的主要用在构建in条件中，它可以在SQL语句中进行迭代�
         </trim>
     </select>
 
+    <!--bind 元素可以从 OGNL 表达式中创建一个变量并将其绑定到上下文-->
+    <select id="queryFruitsLike1" resultType="com.entity.Fruit">
+        <bind name="pattern" value="'%' + name + '%'" />
+        SELECT * FROM fruit
+        WHERE name LIKE #{pattern}
+    </select>
 </mapper>
