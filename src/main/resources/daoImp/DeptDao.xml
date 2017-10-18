@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DeptDao">
+
+    <resultMap id="dept_employee_1" type="com.entity.DepartMent" >
+        <id column="id" property="id"/>
+        <result column="dept_name" property="name"/>
+        <!--collection:关联查询
+        1.与association区别在于 它是一对多 集合的
+        2.ofType 表示集合里面的对象
+        -->
+        <collection property="employees" column="id"   ofType="com.entity.Employee"    javaType="list" select="com.dao.EmployeeDao.queryEmployeeById">
+            <id column="id" property="id"/>
+            <result column="emp_name" property="name"/>
+            <result column="createTime" property="createTime"/>
+            <result column="updateTime" property="updateTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryDepartmentById" resultType="com.entity.DepartMent">
+          SELECT id,dept_name as name,createTime,updateTime from department where id=#{id};
+    </select>
+
+    <select id="queryDepartmentEmpById" resultMap="dept_employee_1">
+        SELECT * from department WHERE id=#{id};
+    </select>
+</mapper>

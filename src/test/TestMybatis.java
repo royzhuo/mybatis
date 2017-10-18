@@ -1,5 +1,10 @@
+import com.dao.DeptDao;
 import com.dao.FruitDao;
+import com.entity.DepartMent;
+import com.entity.Employee;
 import com.entity.Fruit;
+import com.service.DeptService;
+import com.service.EmployeeService;
 import com.service.FruitService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +31,11 @@ public class TestMybatis {
     @Resource
     private FruitService fruitService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private DeptService deptService;
 
 
     @Test
@@ -154,6 +164,17 @@ public class TestMybatis {
         System.out.println(map);
     }
 
+    @Test
+    public void testQueryEmployee(){
+        Employee employee=employeeService.queryEmployeeById(2);
+        System.out.println(employee+"------------------------"+employee.getDept().getName());
+    }
+
+    @Test
+    public void testQueryDepart(){
+        DepartMent departMent=deptService.queryDepartMentById(1);
+        System.out.println(departMent+"-----------------"+departMent.getEmployees());
+    }
 
 
 }
