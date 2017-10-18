@@ -147,6 +147,12 @@ public class TestMybatis {
 
     }
 
+    @Test
+    public void testQueryReturnMap(){
+//        Map<String,Fruit> map=fruitService.queryFruitReturnMap(1);
+        Map<Integer,Fruit> map=fruitService.queryFruitReturnMap("%瓜%");
+        System.out.println(map);
+    }
 
 
 

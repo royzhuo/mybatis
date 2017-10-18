@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.Fruit;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,13 @@ public interface FruitDao {
     List<Fruit> queryFruitsLike(Fruit fruit);
 
     List<Fruit> queryFruitsLike1(Fruit fruit);
+
+    //返回值是map类型时
+    Map<String,Fruit> queryFruitReturnMap(int id);
+
+    //将主键绑定到map的key上
+    @MapKey( "id")
+    Map<Integer,Fruit> queryFruitReturnMap1(String name);
 
 
 

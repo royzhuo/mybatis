@@ -158,4 +158,13 @@ foreach的主要用在构建in条件中，它可以在SQL语句中进行迭代�
         SELECT * FROM fruit
         WHERE name LIKE #{pattern}
     </select>
+
+    <!--hashmap-->
+    <select id="queryFruitReturnMap" resultType="map">
+        SELECT * from fruit WHERE id=#{id};
+    </select>
+
+    <select id="queryFruitReturnMap1" resultType="com.entity.Fruit" parameterType="java.lang.String">
+        SELECT * from fruit WHERE name LIKE #{name};
+    </select>
 </mapper>

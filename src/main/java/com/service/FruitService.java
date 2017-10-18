@@ -76,4 +76,12 @@ public class FruitService {
     public Fruit queryFruitByNameAndId(List<Object> params){
         return fruitDao.queryFruitByNameAndId(params);
     }
+
+    public Map<String,Fruit> queryFruitReturnMap(int id){
+        return fruitDao.queryFruitReturnMap(id);
+    }
+
+    public Map<Integer,Fruit> queryFruitReturnMap(String name){
+        return fruitDao.queryFruitReturnMap1(name);
+    }
 }
